@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+sqlmodel
+python-multipart
+pydantic
+requests
+openai
+pytest
