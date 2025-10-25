@@ -1,4 +1,5 @@
-
+// [file name]: App.js (更新)
+// [file content begin]
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
@@ -9,7 +10,7 @@ import Auth from './pages/Auth';
 import NotFound from './pages/NotFound';
 import './index.css';
 import PlanResult from './pages/PlanResult';
-import ExpensesPage from './pages/ExpensesPage';
+import ExpensesPage from './pages/ExpensesPage';  // 新增
 
 function App() {
   return (
@@ -20,10 +21,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/trips" element={<Trips />} />
           <Route path="/trips/:id" element={<TripDetail />} />
+          <Route path="/trips/:id/expenses" element={<ExpensesPage />} />  {/* 行程相关开销 */}
+          <Route path="/expenses" element={<ExpensesPage />} />  {/* 独立开销记录 */}
           <Route path="/auth" element={<Auth />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/plan-result" element={<PlanResult />} />
-          <Route path="/expenses" element={<ExpensesPage />} />
         </Routes>
       </main>
     </div>
@@ -31,3 +33,4 @@ function App() {
 }
 
 export default App;
+// [file content end]

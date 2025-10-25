@@ -48,3 +48,21 @@ class TripOut(BaseModel):
     preferences: str
     plan: Optional[str] = None
     created_at: Optional[datetime] = None
+
+
+class ExpenseBase(BaseModel):
+    category: str
+    amount: float
+    date: str
+    description: Optional[str] = None
+    location: Optional[str] = None
+    participants: int = 1
+    trip_id: Optional[str] = None
+
+class ExpenseIn(ExpenseBase):
+    pass
+
+class ExpenseOut(ExpenseBase):
+    id: str
+    owner: str
+    created_at: str
