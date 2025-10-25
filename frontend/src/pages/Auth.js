@@ -13,6 +13,7 @@ function Auth() {
     try {
       const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
       const data = await res.json();
+      console.log(data)
       if (res.ok) {
         console.log(data)
         localStorage.setItem('jwt_token', data.access_token);

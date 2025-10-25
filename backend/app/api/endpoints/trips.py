@@ -21,7 +21,7 @@ def list_trips(user: str = Depends(current_user)):
 def save_trip(body: TripIn, user: str = Depends(current_user)):
     """保存本次行程（不含 AI 计划）"""
     payload = {**body.dict(), "owner": user}
-
+    
     res = supabase.table("trips").insert(payload).execute()
     if not res.data:
         raise HTTPException(500, "插入失败，无返回数据")

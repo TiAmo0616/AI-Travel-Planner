@@ -8,10 +8,12 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@ant-design/icons": "^5.6.1",
     "antd": "^5.27.6",
     "axios": "^1.12.2",
     "react": "^18.2.0",
+    "react-amap": "^1.2.8",
     "react-dom": "^18.2.0",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^6.15.0",

@@ -117,7 +117,7 @@ function ExpensesPage() {
         destination: '独立开销记录',
         dates: '未指定',
         budget: '0',
-        travelers: '1人',
+        travelers: '未知',
         preferences: '无'
       });
       return;
@@ -464,8 +464,7 @@ function ExpensesPage() {
           description={
             <div>
               <div>• {id ? '此页面记录与当前行程相关的开销' : '此页面用于记录独立的开销'}</div>
-              <div>• 支持手动输入和语音输入两种方式</div>
-              <div>• 语音输入会自动识别金额、类别等信息</div>
+              <div>• 仅支持手动输入方式</div>
             </div>
           }
           type="info"

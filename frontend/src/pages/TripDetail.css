@@ -1,0 +1,294 @@
+.trip-detail-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+  background: #f5f7fa;
+}
+
+/* 加载状态 */
+.trip-detail-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.trip-detail-empty {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+/* 头部横幅 */
+.plan-header-banner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 60px 5% 50px;
+  color: white;
+  margin-bottom: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.banner-content {
+  max-width: 100%;
+}
+
+.plan-main-title {
+  color: white !important;
+  margin-bottom: 20px !important;
+  font-size: 2.5em !important;
+  font-weight: 700 !important;
+}
+
+.plan-subtitle {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 8px !important;
+}
+
+.plan-stats {
+  margin-top: 24px;
+}
+
+.stat-tag {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* 主要内容卡片 */
+.main-content-card {
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: none;
+  margin: 0;
+}
+
+/* 操作按钮 */
+.action-buttons {
+  padding: 0 24px;
+}
+
+/* 行程元信息 */
+.trip-meta-info {
+  padding: 0 24px 24px;
+}
+
+.trip-meta-info .ant-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* 时间轴区域 */
+.timeline-section {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+}
+
+.day-tabs .ant-tabs-tab {
+  padding: 12px 20px;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.tab-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.day-timeline-card {
+  border: none;
+  background: #fafafa;
+  border-radius: 0 0 12px 12px;
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+}
+
+.day-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.custom-timeline {
+  margin-top: 16px;
+  padding: 0 8px;
+}
+
+.timeline-time {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 80px;
+}
+
+.time-text {
+  font-weight: 500;
+  color: #1890ff;
+}
+
+.activity-card {
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  margin-bottom: 8px;
+}
+
+.activity-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: #1890ff;
+}
+
+.activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.activity-title {
+  font-size: 14px;
+  flex: 1;
+}
+
+.type-tag {
+  margin: 0;
+  font-size: 12px;
+  border: none;
+}
+
+.location-icon {
+  color: #52c41a;
+}
+
+.location-text {
+  font-weight: 500;
+}
+
+.address-text {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.activity-footer {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.cost-text {
+  color: #52c41a;
+  font-weight: 500;
+}
+
+.duration-text {
+  color: #1890ff;
+  font-weight: 500;
+}
+
+/* 地图卡片 */
+.map-card {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+}
+
+.summary-card {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+}
+
+.day-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.day-summary:hover {
+  background: #f5f5f5;
+}
+
+.day-summary.active {
+  background: #e6f7ff;
+  border-color: #1890ff;
+}
+
+.day-stats {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+}
+
+/* 小贴士 */
+.tips-card {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin: 24px 24px 0;
+  border-radius: 12px;
+}
+
+.tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tip-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+/* 原始计划卡片 */
+.raw-plan-card {
+  margin: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .plan-header-banner {
+    padding: 40px 4% 30px;
+  }
+  
+  .plan-main-title {
+    font-size: 2em !important;
+  }
+  
+  .day-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .activity-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .action-buttons {
+    padding: 0 16px;
+  }
+  
+  .trip-meta-info {
+    padding: 0 16px 16px;
+  }
+}

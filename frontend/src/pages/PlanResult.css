@@ -1,0 +1,452 @@
+.plan-result-container {
+  max-width: 1600px; /* 从 1400px 增加到 1600px */
+  margin: 0 auto;
+  padding: 0 24px; /* 增加内边距 */
+}
+
+/* 头部横幅 */
+.plan-header-banner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px 16px 0 0; /* 增加圆角 */
+  padding: 48px 40px; /* 增加内边距 */
+  color: white;
+  margin-bottom: 0;
+}
+
+.banner-content {
+  max-width: 1000px; /* 增加最大宽度 */
+}
+
+.plan-main-title {
+  color: white !important;
+  margin-bottom: 20px !important;
+  font-size: 3em !important; /* 增大标题 */
+  font-weight: 700 !important;
+}
+
+.plan-subtitle {
+  color: rgba(255, 255, 255, 0.95) !important;
+  font-size: 18px; /* 增大副标题 */
+  line-height: 1.7;
+  margin-bottom: 8px !important;
+}
+
+.plan-stats {
+  margin-top: 32px;
+}
+
+.stat-tag {
+  background: rgba(255, 255, 255, 0.25) !important;
+  border: none;
+  color: white;
+  padding: 8px 16px; /* 增大标签 */
+  border-radius: 24px;
+  backdrop-filter: blur(10px);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* 主要内容卡片 */
+.main-content-card {
+  border-radius: 0 0 16px 16px; /* 增加圆角 */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); /* 增强阴影 */
+  border: none;
+  margin-bottom: 40px;
+}
+
+/* 预算进度条 */
+.budget-progress {
+  background: #f8f9fa;
+  padding: 20px 24px; /* 增加内边距 */
+  border-radius: 12px; /* 增加圆角 */
+  margin-bottom: 32px;
+  border: 1px solid #f0f0f0;
+}
+
+.budget-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+/* 时间轴区域 */
+.timeline-section {
+  border: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  height: 100%;
+}
+
+.day-tabs .ant-tabs-tab {
+  padding: 16px 24px; /* 增大标签页 */
+  border-radius: 12px 12px 0 0 !important;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tab-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.day-timeline-card {
+  border: none;
+  background: #fafafa;
+  border-radius: 0 0 12px 12px;
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+}
+
+.day-title {
+  font-size: 17px; /* 增大标题 */
+  font-weight: 600;
+}
+
+.day-budget .ant-statistic-content {
+  font-size: 18px !important; /* 增大预算字体 */
+}
+
+.custom-timeline {
+  margin-top: 20px;
+  padding: 0 8px;
+}
+
+.timeline-time {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 90px;
+}
+
+.time-text {
+  font-weight: 600; /* 加粗时间 */
+  color: #1890ff;
+  font-size: 14px;
+}
+
+.activity-card {
+  border: 1px solid #f0f0f0;
+  border-radius: 10px; /* 增加圆角 */
+  transition: all 0.3s ease;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.activity-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  border-color: #1890ff;
+  transform: translateY(-2px);
+}
+
+.activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.activity-title {
+  font-size: 15px; /* 增大活动标题 */
+  flex: 1;
+  font-weight: 600;
+}
+
+.type-tag {
+  margin: 0;
+  font-size: 12px;
+  border: none;
+  font-weight: 500;
+}
+
+.location-icon {
+  color: #52c41a;
+  font-size: 14px;
+}
+
+.location-text {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.address-text {
+  font-size: 13px; /* 稍大地址文字 */
+  line-height: 1.5;
+}
+
+.activity-footer {
+  display: flex;
+  gap: 20px; /* 增加间距 */
+  align-items: center;
+}
+
+.cost-text {
+  color: #52c41a;
+  font-weight: 600; /* 加粗价格 */
+  font-size: 14px;
+}
+
+.duration-text {
+  color: #1890ff;
+  font-weight: 600; /* 加粗时长 */
+  font-size: 14px;
+}
+
+/* 地图卡片 */
+.map-card {
+  border: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  height: 100%;
+}
+
+.summary-card {
+  border: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+}
+
+.day-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px; /* 增大内边距 */
+  border-radius: 8px; /* 增加圆角 */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  font-size: 14px;
+}
+
+.day-summary:hover {
+  background: #f5f5f5;
+  transform: translateX(4px);
+}
+
+.day-summary.active {
+  background: #e6f7ff;
+  border-color: #1890ff;
+  transform: translateX(8px);
+}
+
+.day-stats {
+  display: flex;
+  gap: 16px; /* 增加间距 */
+  font-size: 13px;
+}
+
+/* 小贴士 */
+.tips-card {
+  border: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  margin-top: 32px;
+}
+
+.tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* 增加间距 */
+}
+
+.tip-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px; /* 增加间距 */
+  padding: 12px 0;
+  font-size: 15px; /* 增大字体 */
+}
+
+.tip-icon {
+  color: #faad14;
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+/* 底部操作 */
+.footer-actions {
+  text-align: center;
+  margin-top: 48px; /* 增加上边距 */
+  padding-top: 32px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.action-btn {
+  padding: 12px 32px; /* 增大按钮 */
+  height: auto;
+  border-radius: 8px; /* 增加圆角 */
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #52c41a, #73d13d);
+  border: none;
+  box-shadow: 0 4px 12px rgba(82, 196, 26, 0.3);
+}
+
+.save-btn:hover {
+  background: linear-gradient(135deg, #73d13d, #95de64);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(82, 196, 26, 0.4);
+}
+
+.save-btn:disabled {
+  background: #f5f5f5;
+  color: #d9d9d9;
+  box-shadow: none;
+  transform: none;
+}
+
+/* 空状态 */
+.plan-result-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh; /* 增加高度 */
+  padding: 60px;
+}
+
+.empty-illustration {
+  text-align: center;
+  max-width: 500px; /* 增加宽度 */
+}
+
+.empty-icon {
+  font-size: 100px; /* 增大图标 */
+  margin-bottom: 32px;
+  opacity: 0.8;
+}
+
+.empty-title {
+  color: #8c8c8c !important;
+  margin-bottom: 20px !important;
+  font-size: 28px !important;
+}
+
+.empty-description {
+  color: #8c8c8c !important;
+  margin-bottom: 40px !important;
+  font-size: 16px !important;
+  line-height: 1.6;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .plan-result-container {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+  
+  .plan-header-banner {
+    padding: 40px 32px;
+    border-radius: 12px 12px 0 0;
+  }
+  
+  .plan-main-title {
+    font-size: 2.5em !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .plan-result-container {
+    padding: 0 16px;
+  }
+  
+  .plan-header-banner {
+    padding: 32px 24px;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .plan-main-title {
+    font-size: 2em !important;
+  }
+  
+  .plan-subtitle {
+    font-size: 16px;
+  }
+  
+  .day-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .activity-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .footer-actions .ant-space {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .footer-actions .ant-btn {
+    flex: 1;
+    min-width: 140px;
+    margin: 4px;
+  }
+  
+  .action-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+/* 大屏幕优化 */
+@media (min-width: 1600px) {
+  .plan-result-container {
+    max-width: 1800px;
+    padding: 0 32px;
+  }
+  
+  .plan-header-banner {
+    padding: 56px 48px;
+  }
+  
+  .plan-main-title {
+    font-size: 3.5em !important;
+  }
+  
+  .plan-subtitle {
+    font-size: 20px;
+  }
+}
+
+/* 网格间距调整 */
+.ant-row {
+  margin-left: -12px !important;
+  margin-right: -12px !important;
+}
+
+.ant-col {
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+}
+
+/* 卡片内边距调整 */
+.ant-card-body {
+  padding: 24px !important;
+}
+
+.ant-card-head {
+  padding: 16px 24px !important;
+}
+
+/* 时间轴样式调整 */
+.ant-timeline-item {
+  padding-bottom: 20px !important;
+}
+
+.ant-timeline-item-content {
+  margin-left: 30px !important;
+  font-size: 14px;
+}

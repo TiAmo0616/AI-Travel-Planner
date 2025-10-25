@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import { Input, Button, Space, message, Card, Progress, Typography, Alert, Tooltip, Spin } from 'antd';
 import { 
   AudioOutlined, 
@@ -21,15 +21,31 @@ const { Text, Title } = Typography;
 
 function Home() {
   const navigate = useNavigate();
+  const location = useLocation();
   
   // 统一的状态管理
-  const [formData, setFormData] = useState({
-    destination: '',
-    dates: '',
-    budget: '',
-    travelers: '',
-    preferences: ''
-  });
+  // 2. 空初始值
+const [formData, setFormData] = useState({
+  destination: '',
+  dates: '',
+  budget: '',
+  travelers: '',
+  preferences: ''
+});
+
+// 3. 如果有预填数据，一次性写入
+useEffect(() => {
+  const prefill = location.state?.prefill;
+  if (prefill) {
+    setFormData({
+      destination: String(prefill.destination || ''),
+      dates: String(prefill.dates || ''),
+      budget: String(prefill.budget || ''),
+      travelers: String(prefill.travelers || ''),
+      preferences: String(prefill.preferences || '')
+    });
+  }
+}, [location.state]);
 
   const [recordingState, setRecordingState] = useState({
     destination: { recording: false, audioBlob: null, transcribed: false, transcribing: false },
@@ -40,7 +56,6 @@ function Home() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [progress, setProgress] = useState(0);
   const [recordingTime, setRecordingTime] = useState(0);
   const [activeRecording, setActiveRecording] = useState(null);
 
@@ -344,12 +359,9 @@ function Home() {
         
       });
 
-      
+      console.log('Itinerary generation response:', res.data);
       navigate('/plan-result', { 
-          state: { 
-            markdown: res.data.itinerary, 
-            formData: formData 
-          } 
+          state: { planData: res.data , formData: formData}
       });
 
     } catch (err) {

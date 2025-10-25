@@ -27,9 +27,11 @@ class TripIn(BaseModel):
     destination: str
     dates: str
     budget: str
-    travelers: str
+    travelers:str
     preferences: str
     plan: Optional[str] = None
+    summary: Optional[str] = None
+    title: Optional[str] = None
 
 
 # 响应
@@ -48,6 +50,8 @@ class TripOut(BaseModel):
     preferences: str
     plan: Optional[str] = None
     created_at: Optional[datetime] = None
+    summary: Optional[str] = None
+    title: Optional[str] = None
 
 
 class ExpenseBase(BaseModel):

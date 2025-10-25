@@ -1,4 +1,4 @@
-// [file name]: App.js (更新)
+// [file name]: src/App.js
 // [file content begin]
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
@@ -10,7 +10,9 @@ import Auth from './pages/Auth';
 import NotFound from './pages/NotFound';
 import './index.css';
 import PlanResult from './pages/PlanResult';
-import ExpensesPage from './pages/ExpensesPage';  // 新增
+import ExpensesPage from './pages/ExpensesPage';
+import MapNavigation from './components/MapNavigation';
+import MapPlan from './pages/MapPlan';
 
 function App() {
   return (
@@ -21,11 +23,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/trips" element={<Trips />} />
           <Route path="/trips/:id" element={<TripDetail />} />
-          <Route path="/trips/:id/expenses" element={<ExpensesPage />} />  {/* 行程相关开销 */}
-          <Route path="/expenses" element={<ExpensesPage />} />  {/* 独立开销记录 */}
+          <Route path="/trips/:id/expenses" element={<ExpensesPage />} />
+          <Route path="/expenses" element={<ExpensesPage />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/plan-result" element={<PlanResult />} />
+          <Route path="/map" element={<MapNavigation />} />
+          <Route path="/map-plan" element={<MapPlan />} />
         </Routes>
       </main>
     </div>

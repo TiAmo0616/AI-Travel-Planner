@@ -1,0 +1,355 @@
+.trips-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+/* 头部样式 */
+.trips-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 40px 0;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.trips-title {
+  color: #262626 !important;
+  margin-bottom: 8px !important;
+  font-weight: 700 !important;
+}
+
+.trips-subtitle {
+  font-size: 16px;
+  color: #8c8c8c;
+}
+
+/* 加载状态 */
+.trips-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.loading-content {
+  height: 200px;
+}
+
+/* 空状态 */
+.trips-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.empty-action-btn {
+  padding: 12px 32px;
+  height: auto;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* 折叠面板样式 */
+.custom-collapse {
+  background: transparent;
+  border: none;
+}
+
+.custom-collapse .ant-collapse-item {
+  background: white;
+  border-radius: 12px !important;
+  margin-bottom: 16px;
+  border: none !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.custom-collapse .ant-collapse-item:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.custom-collapse .ant-collapse-header {
+  padding: 24px !important;
+  background: white !important;
+  border-radius: 12px !important;
+}
+
+.custom-collapse .ant-collapse-content {
+  border: none !important;
+  border-radius: 0 0 12px 12px !important;
+}
+
+.custom-collapse .ant-collapse-content-box {
+  padding: 0 !important;
+}
+
+/* 行程头部 */
+.trip-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.trip-avatar {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  flex-shrink: 0;
+}
+
+.trip-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.trip-destination {
+  font-size: 18px;
+  font-weight: 700;
+  color: #262626;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.trip-meta {
+  display: flex;
+  align-items: center;
+}
+
+.trip-tag {
+  border: none;
+  border-radius: 16px;
+  font-weight: 500;
+  padding: 4px 12px;
+  font-size: 13px;
+}
+
+.trip-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.view-btn {
+  background: linear-gradient(135deg, #1890ff, #40a9ff);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.3);
+}
+
+.view-btn:hover {
+  background: linear-gradient(135deg, #40a9ff, #69c0ff);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.4);
+}
+
+.delete-btn {
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* 行程详情 */
+.trip-details {
+  padding: 24px;
+  background: #fafafa;
+}
+
+.detail-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.detail-card .ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px 20px;
+  background: #fafafa;
+}
+
+.detail-card .ant-card-body {
+  padding: 20px;
+}
+
+.detail-content-full {
+  min-height: auto;
+}
+
+/* 时间信息 */
+.time-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.time-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.time-item .ant-typography:first-child {
+  min-width: 80px;
+  color: #595959;
+}
+
+/* 旅行偏好 */
+.preferences-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.preferences-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-height: 120px;
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.preferences-tags::-webkit-scrollbar {
+  width: 6px;
+}
+
+.preferences-tags::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.preferences-tags::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.preference-tag {
+  border: none;
+  border-radius: 16px;
+  font-size: 13px;
+  padding: 6px 12px;
+  margin: 2px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.preference-tag:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.preferences-count {
+  text-align: center;
+  font-size: 13px;
+  color: #8c8c8c;
+  padding: 8px;
+  background: #f5f5f5;
+  border-radius: 6px;
+}
+
+.no-preferences {
+  text-align: center;
+  display: block;
+  padding: 20px;
+  font-style: italic;
+}
+
+/* 底部操作 */
+.trip-actions-bottom {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.view-detail-btn {
+  background: linear-gradient(135deg, #52c41a, #73d13d);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 32px;
+  height: auto;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(82, 196, 26, 0.3);
+}
+
+.view-detail-btn:hover {
+  background: linear-gradient(135deg, #73d13d, #95de64);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(82, 196, 26, 0.4);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .trips-container {
+    padding: 16px;
+  }
+  
+  .trip-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .trip-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .view-btn,
+  .delete-btn {
+    flex: 1;
+    margin: 0 4px;
+  }
+  
+  .time-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .time-item .ant-typography:first-child {
+    min-width: auto;
+  }
+  
+  .preferences-tags {
+    max-height: 80px;
+  }
+  
+  .preference-tag {
+    max-width: 150px;
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .preference-tag {
+    max-width: 120px;
+    font-size: 11px;
+  }
+}
+
+/* 动画效果 */
+.trip-panel {
+  transition: all 0.3s ease;
+}
+
+.trip-panel:hover {
+  transform: translateY(-1px);
+}
+
+.custom-collapse .ant-collapse-item-active {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12) !important;
+}

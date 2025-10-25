@@ -1,3 +1,5 @@
+// [file name]: NavBar.js (更新)
+// [file content begin]
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -9,6 +11,7 @@ function NavBar() {
         <nav className="links">
           <NavLink to="/" end className={({isActive})=> isActive? 'active':''}>首页</NavLink>
           <NavLink to="/trips" className={({isActive})=> isActive? 'active':''}>我的行程</NavLink>
+          <NavLink to="/map" className={({isActive})=> isActive? 'active':''}>地图导航</NavLink> {/* 新增 */}
           <NavLink to="/auth" className={({isActive})=> isActive? 'active':''}>登录</NavLink>
         </nav>
       </div>
@@ -17,3 +20,4 @@ function NavBar() {
 }
 
 export default NavBar;
+// [file content end]
