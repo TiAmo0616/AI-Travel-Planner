@@ -287,7 +287,7 @@ function TripDetail() {
         {/* 行程日期和预算信息 */}
         <div className="trip-meta-info">
           <Row gutter={[24, 16]}>
-            <Col xs={24} sm={12} md={8}>
+            <Col xs={24} sm={16} md={8}>
               <Card size="small" title="出行日期">
                 <Text strong>{trip.dates}</Text>
               </Card>
@@ -311,7 +311,7 @@ function TripDetail() {
           <>
             <Row gutter={[24, 16]}>
               {/* 左侧：按天 Tab */}
-              <Col xs={24} lg={14}>
+              <Col xs={24} lg={12}>
                 <Card className="timeline-section">
                   <Tabs
                     activeKey={String(activeDay)}
@@ -324,7 +324,7 @@ function TripDetail() {
               </Col>
 
               {/* 右侧：地图和摘要 */}
-              <Col xs={24} lg={10}>
+              <Col xs={24} lg={12}>
                 <Space direction="vertical" size={16} style={{ width: '100%' }}>
                   {/* 地图卡片 */}
                   <Card 

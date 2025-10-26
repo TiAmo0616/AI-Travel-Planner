@@ -8,6 +8,7 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 class TokenResp(BaseModel):
     access_token: str
     token_type: str = "bearer"
+    message: str = "Success"
 
 
 @router.post("/register", response_model=TokenResp)
@@ -15,13 +16,15 @@ def register(body: UserRegister):
     """通过 Supabase 注册，成功直接返回其 access_token"""
     
     try:
+       
         res = supabase.auth.sign_up({
             "email": body.email,
             "password": body.password
         })
+        
         # sign_up 可能返回 session=None（需要邮箱验证时）
         if res.session is None:
-            raise HTTPException(400, "Please confirm your email first")
+            return TokenResp(access_token="", message="Please verify your email before logging in")
         return TokenResp(access_token=res.session.access_token)
     except Exception as e:
         # 捕获 Supabase 返回的重复邮箱等异常

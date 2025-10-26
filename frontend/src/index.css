@@ -8,9 +8,9 @@ body,html,#root{height:100%;margin:0;font-family:Inter, -apple-system, BlinkMacS
 .logo a{font-weight:700;color:var(--primary);text-decoration:none}
 .links a{margin-left:14px;color:var(--muted);text-decoration:none}
 .links a.active{color:var(--primary)}
-.app-container{max-width:960px;margin:24px auto;padding:0 16px}
+.app-container{max-width:100%;margin:24px auto;padding:0 16px}
 .card{background:#fff;padding:18px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.03)}
-.home-page .card{max-width:700px;margin:0 auto}
+.home-page .card{max-width:800px;margin:0 auto}
 textarea{width:100%;padding:8px;border-radius:6px;border:1px solid #ddd;font-size:14px}
 input{padding:6px 8px;border-radius:4px;border:1px solid #ddd}
 .actions{margin-top:8px}
