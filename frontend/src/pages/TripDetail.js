@@ -125,9 +125,10 @@ function TripDetail() {
         className="custom-timeline"
         items={day.schedule?.map((s, idx) => ({
           label: (
-            <div className="timeline-time">
+            <div className="timeline-time" >
               <Badge color={typeMap(s.type)} />
               <Text className="time-text">{s.time}</Text>
+              
             </div>
           ),
           children: (
@@ -156,17 +157,17 @@ function TripDetail() {
                 
                 {s.address && (
                   <Text type="secondary" className="address-text">
-                    {s.address}
+                    ({s.address})
                   </Text>
                 )}
-                
+                <Text type="secondary">{s.description}</Text>
                 <div className="activity-footer">
-                  {s.cost && (
+                  {
                     <Space size="small">
                       <DollarOutlined style={{ color: '#52c41a' }} />
                       <Text className="cost-text">¥{s.cost}</Text>
                     </Space>
-                  )}
+                  }
                   {s.duration && (
                     <Space size="small">
                       <CalendarOutlined style={{ color: '#1890ff' }} />

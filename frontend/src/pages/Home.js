@@ -21,7 +21,7 @@ const { Text, Title } = Typography;
 
 function Home() {
   const navigate = useNavigate();
-  const location = useLocation();
+  const { state } = useLocation();
   
   // 统一的状态管理
   // 2. 空初始值
@@ -35,7 +35,9 @@ const [formData, setFormData] = useState({
 
 // 3. 如果有预填数据，一次性写入
 useEffect(() => {
-  const prefill = location.state?.prefill;
+  const prefill = state?.prefill;
+  console.log('Location state:', state);
+  console.log('prefill:', prefill);
   if (prefill) {
     setFormData({
       destination: String(prefill.destination || ''),

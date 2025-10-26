@@ -40,7 +40,7 @@ export default function PlanResult() {
   const formData = state?.formData;
   const [activeDay, setActiveDay] = useState(1);
   const [saved, setSaved] = useState(false);
-
+  console.log(formData)
   if (!plan) {
     return (
       <div className="plan-result-empty">
@@ -129,7 +129,7 @@ export default function PlanResult() {
         <Button
         icon={<LeftOutlined />}
         onClick={() =>
-          navigate('/', {
+          navigate('/home', {
             state: {
               prefill: {
                 destination: formData.destination,
@@ -220,7 +220,7 @@ export default function PlanResult() {
             )}
             
             <div className="activity-footer">
-              {s.cost && (
+              {(
                 <Space size="small">
                   <DollarOutlined style={{ color: '#52c41a' }} />
                   <Text className="cost-text">¥{s.cost}</Text>

@@ -15,7 +15,8 @@ async def generate_itinerary(destination: str, duration: int, budget: int, trave
         "travelers":人数,
         "destination": "目的地",
         "total_budget": 用户预算,
-        "preferences": "用户偏好描述",
+        "preferences": "用户偏好",
+        "preferences_labels": "根据用户偏好总结的偏好标签",
         "dates": 天数,
         "daily_itinerary": [
             {{

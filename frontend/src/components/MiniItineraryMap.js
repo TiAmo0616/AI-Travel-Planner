@@ -302,7 +302,7 @@ export default function MiniItineraryMap({ plan, dayFilter }) {
                     {location.time && (
                       <span className="location-time">{location.time}</span>
                     )}
-                    {location.cost && (
+                    {(
                       <span className="location-cost">¥{location.cost}</span>
                     )}
                   </div>
