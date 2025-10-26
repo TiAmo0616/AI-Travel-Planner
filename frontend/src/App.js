@@ -55,6 +55,7 @@ import ExpensesPage from './pages/ExpensesPage';
 import MapNavigation from './components/MapNavigation';
 import MapPlan from './pages/MapPlan';
 import ProtectedRoute from './components/ProtectedRoute'; // 新增
+import PreferencesPage from './pages/PreferencesPage'; // 新增
 
 function App() {
   return (
@@ -107,6 +108,13 @@ function App() {
           <Route path="/map-plan" element={
             <ProtectedRoute>
               <MapPlan />
+            </ProtectedRoute>
+          } />
+
+           {/* 新增偏好设置路由 */}
+          <Route path="/preferences" element={
+            <ProtectedRoute>
+              <PreferencesPage />
             </ProtectedRoute>
           } />
           

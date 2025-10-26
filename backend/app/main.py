@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.api.endpoints import auth, trips, ai,expenses
+from app.api.endpoints import auth, trips, ai,expenses,preferences
 
 app = FastAPI(title=settings.app_name)
 
@@ -18,7 +18,7 @@ app.include_router(auth.router)
 app.include_router(trips.router)
 app.include_router(ai.router)
 app.include_router(expenses.router)  # 新增开销路由
-
+app.include_router(preferences.router)  # 新增偏好设置路由
 @app.get("/")
 def root():
     return {"message": "AI Travel Planner API 🚀"}

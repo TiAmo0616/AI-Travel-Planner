@@ -70,3 +70,16 @@ class ExpenseOut(ExpenseBase):
     id: str
     owner: str
     created_at: str
+
+
+# 偏好设置模型
+class PreferenceIn(BaseModel):
+    name: str
+    description: Optional[str] = None
+    category: Optional[str] = "general"  # 偏好分类：general, food, activity, accommodation 等
+
+class PreferenceOut(PreferenceIn):
+    id: str
+    owner: str
+    created_at: str
+    updated_at: str
