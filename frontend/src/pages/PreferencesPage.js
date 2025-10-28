@@ -26,6 +26,7 @@ import {
   LoadingOutlined
 } from '@ant-design/icons';
 import axios from 'axios';
+import api from '../api';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -64,7 +65,7 @@ function PreferencesPage() {
         return;
       }
 
-      const response = await axios.get('http://localhost:8000/preferences/', {
+      const response = await api.get('http://localhost:8000/preferences/', {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -95,7 +96,7 @@ function PreferencesPage() {
         return;
       }
 
-      const response = await axios.post('http://localhost:8000/preferences/save', values, {
+      const response = await api.post('http://localhost:8000/preferences/save', values, {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -123,7 +124,7 @@ function PreferencesPage() {
         return;
       }
 
-      const response = await axios.post(
+      const response = await api.post(
         `http://localhost:8000/preferences/${editingPreference.id}`, 
         values, 
         {
@@ -155,7 +156,7 @@ function PreferencesPage() {
         return;
       }
 
-      await axios.delete(`http://localhost:8000/preferences/${id}`, {
+      await api.delete(`http://localhost:8000/preferences/${id}`, {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

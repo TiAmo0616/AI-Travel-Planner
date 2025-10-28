@@ -628,6 +628,7 @@ import {
 } from '@ant-design/icons';
 import RecordRTC from 'recordrtc';
 import axios from 'axios';
+import api from '../api';
 
 const { Text, Title } = Typography;
 const { Option } = Select;
@@ -712,7 +713,7 @@ function Home() {
         return;
       }
 
-      const response = await axios.get('http://localhost:8000/preferences/', {
+      const response = await api.get('http://localhost:8000/preferences/', {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -837,7 +838,7 @@ function Home() {
     uploadformData.append('audio', audioBlob, `${field}_recording.wav`);
 
     try {
-      const res = await axios.post('http://localhost:8000/ai/transcribe', uploadformData, {
+      const res = await api.post('http://localhost:8000/ai/transcribe', uploadformData, {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -1064,7 +1065,7 @@ function Home() {
       const token = localStorage.getItem('jwt_token');
       if (!token) throw new Error('请先登录');
       console.log('Submitting form data:', formData);
-      const res = await axios.post('http://localhost:8000/ai/generate-itinerary', formData, {
+      const res = await api.post('http://localhost:8000/ai/generate-itinerary', formData, {
         headers: { 
           'Content-Type': 'application/json', 
           'Authorization': `Bearer ${token}` 

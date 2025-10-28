@@ -49,6 +49,7 @@ def list_preferences(
 ):
     """获取用户偏好设置列表，可按分类筛选"""
     try:
+        
         query = supabase.table("preferences").select("*").eq("owner", user)
         
         if category:

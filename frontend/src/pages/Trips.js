@@ -33,6 +33,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useNavigate } from 'react-router-dom';
 import './Trips.css';
+import api from '../api';
 
 dayjs.extend(relativeTime);
 
@@ -50,10 +51,10 @@ function Trips() {
       const token = localStorage.getItem('jwt_token');
       if (!token) return;
       try {
-        const res = await fetch('http://localhost:8000/trips/listtrips', {
+        const {data} = await api.get('http://localhost:8000/trips/listtrips', {
           headers: { Authorization: `Bearer ${token}` }
         });
-        const data = await res.json();
+        //const data = await res.json();
         setTrips(data);
       } catch (err) {
         console.error(err);
@@ -69,12 +70,16 @@ function Trips() {
     const token = localStorage.getItem('jwt_token');
     if (!token) return;
     try {
-      const res = await fetch(`http://localhost:8000/trips/${tripId}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      if (!res.ok) throw new Error(await res.text());
-      const data = await res.json();
+      // const res = await fetch(`http://localhost:8000/trips/${tripId}`, {
+      //   method: 'DELETE',
+      //   headers: { Authorization: `Bearer ${token}` }
+      // });
+      // if (!res.ok) throw new Error(await res.text());
+         await api.delete(`http://localhost:8000/trips/${tripId}`, {
+          
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        
       message.success('行程删除成功');
       setTrips(trips.filter(t => t.id !== tripId));
     } catch (err) {

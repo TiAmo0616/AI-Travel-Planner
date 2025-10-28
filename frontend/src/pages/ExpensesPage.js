@@ -47,6 +47,7 @@ import RecordRTC from 'recordrtc';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import api from '../api';
 
 dayjs.extend(relativeTime);
 
@@ -128,7 +129,7 @@ function ExpensesPage() {
       const token = localStorage.getItem('jwt_token');
       console.log('加载行程信息，ID:', id);
       
-      const response = await axios.get(`http://localhost:8000/trips/${id}`, {
+      const response = await api.get(`http://localhost:8000/trips/${id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -164,7 +165,7 @@ function ExpensesPage() {
       const params = id ? { trip_id: id } : {};
       console.log('加载开销数据，参数:', params);
 
-      const response = await axios.get('http://localhost:8000/expenses/', {
+      const response = await api.get('http://localhost:8000/expenses/', {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -206,7 +207,7 @@ function ExpensesPage() {
 
       let response;
       if (editingExpense) {
-        response = await axios.put(
+        response = await api.put(
           `http://localhost:8000/expenses/${editingExpense.id}`,
           expenseData,
           { 
@@ -217,7 +218,7 @@ function ExpensesPage() {
           }
         );
       } else {
-        response = await axios.post(
+        response = await api.post(
           'http://localhost:8000/expenses/',
           expenseData,
           { 
@@ -250,7 +251,7 @@ function ExpensesPage() {
   const deleteExpense = async (expenseId) => {
     try {
       const token = localStorage.getItem('jwt_token');
-      await axios.delete(`http://localhost:8000/expenses/${expenseId}`, {
+      await api.delete(`http://localhost:8000/expenses/${expenseId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       await loadExpenses();
