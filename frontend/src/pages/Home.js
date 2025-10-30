@@ -843,7 +843,7 @@ function Home() {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
         },
-        timeout: 30000
+        // timeout: 30000
       });
       
       console.log('Transcription response:', res.data);

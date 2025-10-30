@@ -321,6 +321,7 @@
 //   );
 // }
 
+// MiniItineraryMap.js 更新版本
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Card, Spin, Empty } from 'antd';
 import { AimOutlined, LoadingOutlined } from '@ant-design/icons';
@@ -333,13 +334,25 @@ const isValidCoordinate = (lng, lat) => {
     return false;
   }
   
-  // 确保是数字且不是 NaN
   const numLng = Number(lng);
   const numLat = Number(lat);
   
   return !isNaN(numLng) && !isNaN(numLat) && 
          numLng >= -180 && numLng <= 180 && 
          numLat >= -90 && numLat <= 90;
+};
+
+// 活动类型图标映射
+const getActivityIcon = (type) => {
+  const iconMap = {
+    attraction: '🏞️',
+    dining: '🍽️',
+    transport: '🚗',
+    accommodation: '🏨',
+    shopping: '🛍️',
+    culture: '🎭'
+  };
+  return iconMap[type] || '📍';
 };
 
 // 标记颜色函数
@@ -368,12 +381,22 @@ const getActivityTypeText = (type) => {
   return typeMap[type] || '其他';
 };
 
+// 截短地点名称的函数
+const truncateLocationName = (name, maxLength = 6) => {
+  if (!name) return '地点';
+  if (name.length <= maxLength) return name;
+  return name.substring(0, maxLength) + '...';
+};
+
 export default function MiniItineraryMap({ plan, dayFilter }) {
   const containerId = `mini-map-${dayFilter}`;
   const mapRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [mapError, setMapError] = useState(false);
   const [coordinates, setCoordinates] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const markersRef = useRef([]);
+  const infoWindowRef = useRef(null);
 
   // 安全地获取坐标数据
   const getValidCoordinates = useCallback(() => {
@@ -391,11 +414,8 @@ export default function MiniItineraryMap({ plan, dayFilter }) {
         return [];
       }
 
-      console.log(`处理第 ${dayFilter} 天的行程数据:`, targetDay.schedule);
-
       targetDay.schedule.forEach((scheduleItem, index) => {
         try {
-          // 检查坐标数据是否存在
           if (!scheduleItem || !scheduleItem.coordinates) {
             console.warn(`第 ${index + 1} 个活动缺少坐标数据:`, scheduleItem);
             return;
@@ -403,17 +423,16 @@ export default function MiniItineraryMap({ plan, dayFilter }) {
 
           const { lng, lat } = scheduleItem.coordinates;
           
-          // 更严格的坐标验证
           if (!isValidCoordinate(lng, lat)) {
             console.warn(`第 ${index + 1} 个活动坐标无效:`, { lng, lat });
             return;
           }
 
-          // 确保坐标是数字类型
           const validLng = Number(lng);
           const validLat = Number(lat);
 
           coords.push({
+            id: index,
             name: scheduleItem.location || scheduleItem.activity || '未知地点',
             lnglat: [validLng, validLat],
             type: scheduleItem.type || 'attraction',
@@ -422,14 +441,11 @@ export default function MiniItineraryMap({ plan, dayFilter }) {
             address: scheduleItem.address,
             cost: scheduleItem.cost
           });
-          
-          console.log(`添加有效坐标: ${validLng}, ${validLat} - ${scheduleItem.location}`);
         } catch (itemError) {
           console.error(`处理第 ${index + 1} 个活动时出错:`, itemError);
         }
       });
 
-      console.log(`最终有效坐标数量: ${coords.length}`);
       return coords;
     } catch (error) {
       console.error('获取坐标数据时出错:', error);
@@ -443,15 +459,57 @@ export default function MiniItineraryMap({ plan, dayFilter }) {
     setCoordinates(coords);
   }, [getValidCoordinates]);
 
-  // 调试信息
-  useEffect(() => {
-    console.log('MiniItineraryMap 组件渲染:', {
-      dayFilter,
-      hasPlan: !!plan,
-      dailyItinerary: plan?.daily_itinerary,
-      coordinatesCount: coordinates.length
-    });
-  }, [plan, dayFilter, coordinates.length]);
+  // 创建信息窗口内容
+  // MiniItineraryMap.js 中修改信息窗口内容函数
+
+// 创建信息窗口内容 - 修改为显示位置信息
+const createInfoWindowContent = (location) => {
+  return `
+    <div class="custom-info-window">
+      <div class="info-header">
+        <span class="info-icon">${getActivityIcon(location.type)}</span>
+        <div class="info-title">
+          <div class="info-name">${location.name}</div>
+          <div class="info-type" style="background: ${getMarkerColor(location.type)}">
+            ${getActivityTypeText(location.type)}
+          </div>
+        </div>
+      </div>
+      <div class="info-content">
+        <!-- 主要修改这里：显示位置信息而不是活动信息 -->
+        ${location.address ? `
+          <div class="info-address">
+            <span class="info-label">位置：</span>
+            <span>${location.address}</span>
+          </div>
+        ` : ''}
+        <div class="info-coordinates">
+          <span class="info-label">坐标：</span>
+          <span>经度 ${location.lnglat[0].toFixed(6)}, 纬度 ${location.lnglat[1].toFixed(6)}</span>
+        </div>
+        <!-- 可选：保留活动信息但放在次要位置 -->
+        ${location.activity && location.activity !== '未知活动' ? `
+          <div class="info-activity">
+            <span class="info-label">活动：</span>
+            <span>${location.activity}</span>
+          </div>
+        ` : ''}
+        ${location.time ? `
+          <div class="info-time">
+            <span class="info-label">时间：</span>
+            <span>${location.time}</span>
+          </div>
+        ` : ''}
+        ${location.cost && location.cost !== '0' ? `
+          <div class="info-cost">
+            <span class="info-label">费用：</span>
+            <span>¥${location.cost}</span>
+          </div>
+        ` : ''}
+      </div>
+    </div>
+  `;
+};
 
   useEffect(() => {
     if (!coordinates || coordinates.length === 0) {
@@ -464,7 +522,6 @@ export default function MiniItineraryMap({ plan, dayFilter }) {
 
     const initMap = async () => {
       try {
-        // 确保容器存在且可见
         await new Promise(resolve => setTimeout(resolve, 100));
         const container = document.getElementById(containerId);
         if (!container) {
@@ -474,9 +531,7 @@ export default function MiniItineraryMap({ plan, dayFilter }) {
           return;
         }
 
-        // 检查容器尺寸
         if (container.offsetWidth === 0 || container.offsetHeight === 0) {
-          console.warn('地图容器尺寸为0，等待布局完成');
           await new Promise(resolve => setTimeout(resolve, 500));
         }
 
@@ -484,6 +539,7 @@ export default function MiniItineraryMap({ plan, dayFilter }) {
         if (amapService.map) {
           try {
             amapService.destroy();
+            markersRef.current = [];
           } catch (destroyError) {
             console.warn('清理旧地图时出错:', destroyError);
           }
@@ -494,81 +550,107 @@ export default function MiniItineraryMap({ plan, dayFilter }) {
         const centerLng = coordinates.reduce((sum, coord) => sum + coord.lnglat[0], 0) / coordinates.length;
         const centerLat = coordinates.reduce((sum, coord) => sum + coord.lnglat[1], 0) / coordinates.length;
         
-        console.log('初始化地图，中心点:', [centerLng, centerLat], '缩放:', zoomLevel);
-
         // 初始化地图
         mapRef.current = await amapService.initMap(containerId, { 
           zoom: zoomLevel,
           center: [centerLng, centerLat],
           resizeEnable: true,
-          viewMode: '2D'
+          viewMode: '2D',
+          mapStyle: 'amap://styles/normal'
         });
 
-        // 检查地图是否成功加载
         if (!amapService.mapLoaded || !amapService.map) {
           throw new Error('地图加载失败');
         }
 
-        // 添加标记点
+        // 创建信息窗口
+        infoWindowRef.current = new window.AMap.InfoWindow({
+          offset: new window.AMap.Pixel(0, -30),
+          closeWhenClickMap: true
+        });
+
+        // 添加标记点 - 显示图标和名称
         coordinates.forEach((coord, idx) => {
           try {
             if (!coord.lnglat || !Array.isArray(coord.lnglat) || coord.lnglat.length !== 2) {
-              console.warn(`坐标数据格式错误:`, coord);
               return;
             }
             
-            amapService.addMarker(coord.lnglat, {
-              title: `${idx + 1}. ${coord.name} - ${coord.activity}`,
+            const markerColor = getMarkerColor(coord.type);
+            const icon = getActivityIcon(coord.type);
+            const truncatedName = truncateLocationName(coord.name);
+            
+            const marker = amapService.addMarker(coord.lnglat, {
+              title: ` ${coord.name} - ${coord.address}`,
               content: `
-                <div class="custom-marker" style="background: ${getMarkerColor(coord.type)}">
-                  <div class="marker-number">${idx + 1}</div>
-                  <div class="marker-pin"></div>
+                <div class="custom-icon-marker" style="border-color: ${markerColor}">
+                  <div class="marker-icon">${icon}</div>
+                  <div class="marker-name" style="background: ${markerColor}">${truncatedName}</div>
                 </div>
               `,
             });
+
+            // 添加点击事件
+            marker.on('click', () => {
+              setSelectedLocation(coord);
+              infoWindowRef.current.setContent(createInfoWindowContent(coord));
+              infoWindowRef.current.open(amapService.map, coord.lnglat);
+            });
+
+            markersRef.current.push(marker);
           } catch (markerError) {
             console.warn(`添加标记点 ${idx} 时出错:`, markerError);
           }
         });
 
-        // 绘制路线
+        // // 绘制蓝色路线
+        // if (coordinates.length > 1) {
+        //   try {
+        //     const path = coordinates.map(coord => coord.lnglat);
+        //     amapService.drawPolyline(path, { 
+        //       strokeColor: '#1890ff',
+        //       strokeWeight: 6,
+        //       strokeOpacity: 0.8,
+        //       strokeStyle: 'solid',
+        //       lineJoin: 'round',
+        //       lineCap: 'round'
+        //     });
+        //   } catch (polylineError) {
+        //     console.warn('绘制路线时出错:', polylineError);
+        //   }
+        // }
+        // 绘制路线 - 修改为类似高德地图的样式
         if (coordinates.length > 1) {
           try {
-            const path = coordinates.map(coord => {
-              if (!coord.lnglat || !Array.isArray(coord.lnglat)) {
-                throw new Error(`无效的坐标数据: ${JSON.stringify(coord)}`);
-              }
-              return coord.lnglat;
-            });
-            
+            const path = coordinates.map(coord => coord.lnglat);
             amapService.drawPolyline(path, { 
-              strokeColor: '#722ed1',
-              strokeWeight: 6,
-              strokeOpacity: 0.9,
-              strokeStyle: 'solid'
+              strokeColor: '#1890ff',        // 蓝色路线
+              strokeWeight: 5,               // 增加线宽
+              strokeOpacity: 0.9,            // 增加不透明度
+              strokeStyle: 'solid',          // 实线
+              lineJoin: 'round',             // 圆角连接
+              lineCap: 'round',              // 圆角端点
+              borderWeight: 2,               // 边框宽度
+              showDir: true,              
+              dirColor: '#ffffffff',         // 箭头颜色
+              
+              
             });
           } catch (polylineError) {
             console.warn('绘制路线时出错:', polylineError);
           }
         }
 
-        // 调整视野包含所有标记
+        // 调整视野
         try {
           if (coordinates.length > 0) {
-            amapService.map.setFitView(null, false, [60, 60, 60, 60], 100);
+            amapService.map.setFitView(null, false, [80, 80, 80, 80], 100);
           }
         } catch (fitViewError) {
           console.warn('调整视野时出错:', fitViewError);
-          // 如果 fitView 失败，使用中心点
-          if (coordinates.length > 0) {
-            const centerLng = coordinates.reduce((sum, coord) => sum + coord.lnglat[0], 0) / coordinates.length;
-            const centerLat = coordinates.reduce((sum, coord) => sum + coord.lnglat[1], 0) / coordinates.length;
-            amapService.map.setCenter([centerLng, centerLat]);
-          }
         }
         
         setLoading(false);
-        console.log('地图初始化完成');
       } catch (error) {
         console.error('地图初始化失败:', error);
         setMapError(true);
@@ -579,12 +661,11 @@ export default function MiniItineraryMap({ plan, dayFilter }) {
     initMap();
 
     return () => {
-      // 清理函数 - 只在组件卸载时清理
       if (amapService.mapLoaded && amapService.map) {
         try {
-          // 延迟清理以避免地图闪烁
           setTimeout(() => {
             amapService.destroy();
+            markersRef.current = [];
           }, 100);
         } catch (destroyError) {
           console.warn('清理地图时出错:', destroyError);
@@ -654,15 +735,15 @@ export default function MiniItineraryMap({ plan, dayFilter }) {
           style={{ 
             width: '100%', 
             height: '100%',
-            minHeight: '300px'
+            minHeight: '600px'
           }}
         />
       </div>
       
       <div className="map-footer">
         <div className="route-info">
-          <div className="route-line"></div>
-          <span className="route-text">紫色路线为建议游览顺序</span>
+          <div className="route-line" style={{ background: '#1890ff' }}></div>
+          <span className="route-text">蓝色路线为建议游览顺序</span>
         </div>
         <div className="locations-count">
           {coordinates.length} 个定位点
@@ -678,12 +759,16 @@ export default function MiniItineraryMap({ plan, dayFilter }) {
         
         <div className="locations-list">
           {coordinates.map((location, index) => (
-            <div key={index} className="location-item">
+            <div 
+              key={index} 
+              className={`location-item ${selectedLocation?.id === location.id ? 'selected' : ''}`}
+              onClick={() => setSelectedLocation(location)}
+            >
               <div 
                 className="location-marker"
                 style={{ background: getMarkerColor(location.type) }}
               >
-                {index + 1}
+                {getActivityIcon(location.type)}
               </div>
               <div className="location-info">
                 <div className="location-main">

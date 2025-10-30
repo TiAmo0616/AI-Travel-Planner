@@ -35,7 +35,7 @@ import { message } from 'antd';
 // 1. 创建单例
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
-  timeout: 30000,
+  headers: { 'Content-Type': 'application/json' },
 });
 
 // 2. 请求拦截：统一携带 token
