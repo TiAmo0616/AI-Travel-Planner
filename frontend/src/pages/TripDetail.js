@@ -433,6 +433,7 @@ import {
 } from '@ant-design/icons';
 import MiniItineraryMap from '../components/MiniItineraryMap';
 import './TripDetail.css';
+import api from '../api';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -455,13 +456,13 @@ function TripDetail() {
       }
       
       try {
-        const res = await fetch(`http://localhost:8000/trips/${id}`, {
+        const res = await api.get(`http://localhost:8000/trips/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         
-        if (!res.ok) throw new Error('获取行程数据失败');
+        // if (!res.ok) throw new Error('获取行程数据失败');
         
-        const data = await res.json();
+        const data =  res.data;
         setTrip(data);
         
         // 解析 plan 字段

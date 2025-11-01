@@ -1095,9 +1095,9 @@ function Home() {
 
     return (
       <div style={{ marginBottom: 20 }}>
-        <Text strong style={{ display: 'block', marginBottom: 8 }}>
+        {/* <Text strong style={{ display: 'block', marginBottom: 8 }}>
           <HeartOutlined /> 快速选择已保存的偏好
-        </Text>
+        </Text> */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
           {userPreferences.map(preference => (
             <Tooltip

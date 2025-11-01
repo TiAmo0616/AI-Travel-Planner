@@ -30,6 +30,7 @@ import {
 } from '@ant-design/icons';
 import MiniItineraryMap from '../components/MiniItineraryMap';
 import './PlanResult.css';
+import api from '../api';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -62,7 +63,7 @@ export default function PlanResult() {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem('jwt_token');
-       const res = await fetch('http://localhost:8000/trips/save', {
+       const res = await api.post('http://localhost:8000/trips/save', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -79,11 +80,11 @@ export default function PlanResult() {
           plan: JSON.stringify(plan),
         }),
       });
-       if (!res.ok) {
-        // 4xx/5xx 都进这里
-        const detail = await res.text();
-        throw new Error(detail || `请求失败 ${res.status}`);
-      }
+      //  if (!res.ok) {
+      //   // 4xx/5xx 都进这里
+      //   const detail = await res.text();
+      //   throw new Error(detail || `请求失败 ${res.status}`);
+      // }
       message.success('行程已保存到云端 ✨');
       setSaved(true);
       
@@ -296,7 +297,7 @@ export default function PlanResult() {
             </Tag>
             {formData?.travelers && (
               <Tag icon={<HeartOutlined />} color="red" className="stat-tag">
-              人数：  {formData.travelers} 
+              人数：  {plan.travelers} 
               </Tag>
             )}
           </Space>

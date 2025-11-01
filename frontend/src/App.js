@@ -145,6 +145,7 @@ import MapNavigation from './components/MapNavigation';
 import MapPlan from './pages/MapPlan';
 import ProtectedRoute from './components/ProtectedRoute';
 import PreferencesPage from './pages/PreferencesPage';
+import  NavigationPage from './pages/NavigationPage';
 
 function App() {
   return (
@@ -203,6 +204,12 @@ function App() {
           <Route path="/preferences" element={
             <ProtectedRoute>
               <PreferencesPage />
+            </ProtectedRoute>
+          } />
+
+            <Route path="/navigation" element={
+            <ProtectedRoute>
+              <NavigationPage />
             </ProtectedRoute>
           } />
           

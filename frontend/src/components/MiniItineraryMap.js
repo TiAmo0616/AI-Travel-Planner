@@ -328,6 +328,7 @@ import { AimOutlined, LoadingOutlined } from '@ant-design/icons';
 import amapService from '../services/amapService';
 import './MiniItineraryMap.css';
 
+
 // 坐标验证函数
 const isValidCoordinate = (lng, lat) => {
   if (lng === null || lat === null || lng === undefined || lat === undefined) {
@@ -462,6 +463,41 @@ export default function MiniItineraryMap({ plan, dayFilter }) {
   // 创建信息窗口内容
   // MiniItineraryMap.js 中修改信息窗口内容函数
 
+  // 修改导航处理函数，不使用 navigate
+const handleNavigation = (lng, lat, name, address) => {
+  // 存储导航信息到 localStorage
+  const navData = {
+    destination: {
+      lng: parseFloat(lng),
+      lat: parseFloat(lat),
+      name: name,
+      address: address || ''
+    },
+    timestamp: new Date().getTime()
+  };
+  
+  // 保存到 localStorage
+  localStorage.setItem('navigationData', JSON.stringify(navData));
+  
+  // 直接跳转到导航页面
+  window.location.href = '/navigation';
+};
+
+// 在组件初始化时将导航函数挂载到 window
+useEffect(() => {
+  // 安全地挂载导航函数到 window
+  if (typeof window !== 'undefined') {
+    window.handleNavigation = handleNavigation;
+  }
+
+  return () => {
+    // 清理时移除
+    if (typeof window !== 'undefined' && window.handleNavigation) {
+      delete window.handleNavigation;
+    }
+  };
+}, []);
+
 // 创建信息窗口内容 - 修改为显示位置信息
 const createInfoWindowContent = (location) => {
   return `
@@ -506,6 +542,12 @@ const createInfoWindowContent = (location) => {
             <span>¥${location.cost}</span>
           </div>
         ` : ''}
+      </div>
+       <!-- 添加导航按钮 -->
+      <div class="info-actions">
+        <button class="nav-button" onclick="handleNavigation(${location.lnglat[0]}, ${location.lnglat[1]}, '${location.name}', '${location.address || ''}')">
+          🚗 到这里去
+        </button>
       </div>
     </div>
   `;
@@ -680,6 +722,7 @@ const createInfoWindowContent = (location) => {
       <Card className="mini-map-card empty">
         <Empty
           image={<div className="empty-map-icon">🗺️</div>}
+          
           description={
             <div>
               <div style={{ marginBottom: 8, fontSize: 14 }}>当天暂无坐标信息</div>
