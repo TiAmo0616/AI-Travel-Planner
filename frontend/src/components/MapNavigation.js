@@ -1477,7 +1477,7 @@ const fallbackToDefaultView = () => {
         }
         message.success(`找到 ${places.length} 个相关地点`);
       } else {
-        message.warning('未找到相关地点');
+        message.warning('未找到相关地点，请刷新页面或重新输入相关地点');
         if (type === 'start') {
           setStartSearchResults([]);
         } else {

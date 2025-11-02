@@ -328,7 +328,7 @@ function Auth() {
         <Divider style={{ margin: '24px 0' }} />
         <div style={{ textAlign: 'center' }}>
           <Text type="secondary">
-            © 2024 AI Travel · 让旅行更智能
+            © 2025 AI Travel · 让旅行更智能
           </Text>
         </div>
       </Card>

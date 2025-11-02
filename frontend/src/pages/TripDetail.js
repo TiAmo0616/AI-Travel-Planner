@@ -451,7 +451,7 @@ function TripDetail() {
       const token = localStorage.getItem('jwt_token');
       if (!token) {
         message.error('请先登录');
-        navigate('/login');
+        navigate('/auth');
         return;
       }
       

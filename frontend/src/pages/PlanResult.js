@@ -63,22 +63,20 @@ export default function PlanResult() {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem('jwt_token');
-       const res = await api.post('http://localhost:8000/trips/save', {
-        method: 'POST',
+      const res = await api.post('http://localhost:8000/trips/save', {
+        destination: plan.destination,
+        dates: String(plan.dates),
+        budget: String(plan.total_budget),
+        travelers: String(plan.travelers),
+        preferences: plan.preferences,
+        summary: plan.summary,
+        title: plan.title,
+        plan: JSON.stringify(plan),
+      }, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          destination: plan.destination,
-          dates: String(plan.dates),
-          budget: String(plan.total_budget),
-          travelers: String(plan.travelers),
-          preferences: plan.preferences,
-          summary: plan.summary,
-          title: plan.title,
-          plan: JSON.stringify(plan),
-        }),
       });
       //  if (!res.ok) {
       //   // 4xx/5xx 都进这里
