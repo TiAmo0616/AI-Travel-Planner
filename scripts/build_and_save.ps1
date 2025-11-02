@@ -22,7 +22,8 @@ Push-Location $root
 New-Item -ItemType Directory -Path dist -Force | Out-Null
 
 Write-Host "Building backend image..."
-docker build -t $("$RepositoryOwner/ai-travel-backend:$Tag") -f backend/app/Dockerfile backend/app
+# build context should be backend so Dockerfile can read ../requirements.txt if needed
+docker build -t $("$RepositoryOwner/ai-travel-backend:$Tag") -f backend/app/Dockerfile backend
 
 Write-Host "Building frontend image... (may take a while)"
 docker build -t $("$RepositoryOwner/ai-travel-frontend:$Tag") frontend

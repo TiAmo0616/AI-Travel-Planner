@@ -2,8 +2,8 @@ version: '3.8'
 services:
   backend:
     build:
-      context: ./backend/app
-      dockerfile: Dockerfile
+      context: ./backend
+      dockerfile: app/Dockerfile
     image: ai-travel-backend:latest
     ports:
       - "8000:8000"

@@ -46,7 +46,7 @@ jobs:
       - name: Build and push backend image
         uses: docker/build-push-action@v5
         with:
-          context: ./backend/app
+          context: ./backend
           file: ./backend/app/Dockerfile
           push: true
           tags: |
