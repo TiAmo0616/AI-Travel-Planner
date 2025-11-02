@@ -10,7 +10,7 @@
 - 使用 Create React App（见 `package.json` 中的 `react-scripts`），开发脚本：`npm start`。构建命令：`npm run build`。
 - 源代码位于 `frontend/src/`，主要组件包括 `components/`、`pages/` 和 `services/`（`amapService.js`、`locationService.js`、`api.js` 等）。
 - 前端通过 `src/api.js` 读取环境变量 `REACT_APP_API_URL` 以配置后端 baseURL。
-- 地图与定位需要高德（AMap）Key；代码中使用 `REACT_APP_AMAP_KEY` / `REACT_APP_AMAP_SECURITY_CODE` / `REACT_APP_AMAP_API_KEY` 等环境变量。
+- 地图与定位需要高德（AMap）Key；代码中使用 `REACT_APP_AMAP_KEY`(web 端) / `REACT_APP_AMAP_SECURITY_CODE`(web 端) / `REACT_APP_AMAP_API_KEY` (web 服务) 等环境变量。
 
 快速开始（开发）
 
