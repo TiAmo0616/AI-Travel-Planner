@@ -49,3 +49,31 @@ REACT_APP_AMAP_API_KEY=your_amap_api_key
 
 - `frontend/src/api.js`：前端与后端通信的 axios 实例（通过 `REACT_APP_API_URL` 配置）。
 - `frontend/src/services/`：地图、地理编码与位置服务实现。
+
+Docker 与镜像
+
+1) 构建前端镜像（项目根或 frontend 目录执行）：
+
+```powershell
+docker build -t yourdockeruser/ai-travel-frontend:latest frontend
+```
+
+2) 运行镜像（镜像内通过 nginx 在 80 提供静态文件）：
+
+```powershell
+docker run -d --name ai-travel-frontend -p 3000:80 yourdockeruser/ai-travel-frontend:latest
+```
+
+3) 如果你下载了镜像 tar 包（例如 `ai-travel-frontend.tar`）：
+
+```powershell
+docker load -i ai-travel-frontend.tar
+docker run -d --name ai-travel-frontend -p 3000:80 yourdockeruser/ai-travel-frontend:latest
+```
+
+4) 推荐：使用仓库根目录的 `docker-compose.yml`（它会同时构建并启动前后端），在项目根执行：
+
+```powershell
+docker-compose up --build
+```
+

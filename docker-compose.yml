@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./backend/app
+      dockerfile: Dockerfile
+    image: ai-travel-backend:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SECRET_KEY=${SECRET_KEY}
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:8000}
+    image: ai-travel-frontend:latest
+    ports:
+      - "3000:80" # maps frontend nginx 80 -> host 3000 to match dev CORS
+    environment:
+      - REACT_APP_API_URL=${REACT_APP_API_URL}
+
+# Usage:
+# docker-compose up --build
+# To run production-like setup, set env vars in a .env file or shell.

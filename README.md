@@ -99,3 +99,78 @@ pytest -q
 ---
 
 如果你希望我把 README 翻译为英文、补充部署指南或为特定平台（Docker / Docker Compose / GitHub Actions）添加示例，请告诉我你想要的目标，我可以继续完善。
+
+## 使用 Docker 与镜像分发（可直接下载运行）
+
+仓库现在包含用于构建前端与后端镜像的 Dockerfile 与 `docker-compose.yml`，并提供一个用于构建并导出镜像为 tar 包的 PowerShell 脚本：`scripts/build_and_save.ps1`。
+
+1) 从远程仓库拉取（或在本地）构建并导出镜像为 tar（示例）
+
+```powershell
+# 在仓库根目录运行（替换 yourdockeruser 为你的镜像仓库或任意标签前缀）
+.\scripts\build_and_save.ps1 -RepositoryOwner yourdockeruser -Tag latest
+
+# 结果文件： ./dist/ai-travel-backend.tar 和 ./dist/ai-travel-frontend.tar
+```
+
+2) 在目标机器上直接加载并运行镜像（如果你把 `dist/*.tar` 作为可下载文件提供）
+
+```powershell
+# 加载镜像
+docker load -i ai-travel-backend.tar
+docker load -i ai-travel-frontend.tar
+
+# 运行后端
+docker run -d --name ai-travel-backend -p 8000:8000 yourdockeruser/ai-travel-backend:latest
+
+# 运行前端（镜像内使用 nginx 在 80 端口）
+docker run -d --name ai-travel-frontend -p 3000:80 yourdockeruser/ai-travel-frontend:latest
+```
+
+3) 或者使用 `docker-compose` 来一起构建与启动（建议开发或本地测试）
+
+```powershell
+# 在仓库根目录
+docker-compose up --build
+```
+
+4) 如果你已经把镜像发布到 Docker Hub 或 GitHub Container Registry，可以直接拉取运行：
+
+```powershell
+docker pull yourdockeruser/ai-travel-backend:latest
+docker pull yourdockeruser/ai-travel-frontend:latest
+
+docker run -d --name ai-travel-backend -p 8000:8000 yourdockeruser/ai-travel-backend:latest
+docker run -d --name ai-travel-frontend -p 3000:80 yourdockeruser/ai-travel-frontend:latest
+```
+
+注：如果前端在容器中使用 nginx 提供静态文件并将 80 映射到宿主 3000（如上例），后端的 CORS 设置通常允许 `http://localhost:3000`，这与代码中 `backend/app/main.py` 的默认 CORS 设定一致。
+
+## 自动构建与发布（GitHub Actions -> 阿里云容器镜像仓库）
+
+项目已包含一个 GitHub Actions workflow：`.github/workflows/publish-to-acr.yml`。
+它会在向 `main` 分支 push 或手动触发时：
+
+- 使用你在仓库 Secrets 中配置的阿里云凭据登录 ACR
+- 构建 `backend` 与 `frontend` 镜像
+- 将镜像推送到你指定的 ACR 命名空间，并同时打上 `latest` 与 `commit-sha` 两个标签
+
+所需在仓库 Settings -> Secrets 中设置的 Secrets（示例名称）：
+
+- `ACR_REGISTRY` — 你的阿里云镜像仓库域名，例如 `registry.cn-hangzhou.aliyuncs.com`
+- `ACR_USERNAME` — 阿里云 AccessKey ID（建议使用子账号或具备推送权限的 AccessKey）
+- `ACR_PASSWORD` — 阿里云 AccessKey Secret
+- `ACR_NAMESPACE` — 你的 ACR 命名空间（仓库前缀）
+- `REACT_APP_API_URL` — （可选）前端构建时注入的后端 base URL，例如 `https://api.example.com`
+
+如何使用：
+
+1. 在 GitHub 仓库的 Settings -> Secrets 中添加上面的 Secrets。
+2. Push 到 `main` 分支或在 Actions 页面手动触发 workflow。
+3. 构建成功后，你可以在阿里云镜像仓库中看到 `ai-travel-backend` 与 `ai-travel-frontend` 两个镜像及其标签。
+
+安全建议：
+
+- 使用具有最小权限的 AccessKey。若可能，使用阿里云的 RAM 子用户来限定权限。
+- 不要在仓库中直接提交任何明文凭据。
+

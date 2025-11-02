@@ -71,3 +71,28 @@ pytest -q
 - `backend/app/main.py`（路由与 CORS 设置）
 - `backend/services/`（第三方服务集成，如 `openai_service.py`、`iflytek_service.py`）
 - `backend/db/`（Supabase/Mongo 封装）
+
+运行镜像 / Docker
+
+1) 使用仓库提供的 Dockerfile 构建镜像（位于 `backend/app/Dockerfile`）：
+
+```powershell
+cd <repo-root>
+docker build -t yourdockeruser/ai-travel-backend:latest -f backend/app/Dockerfile backend/app
+```
+
+2) 直接运行构建好的镜像：
+
+```powershell
+docker run -d --name ai-travel-backend -p 8000:8000 yourdockeruser/ai-travel-backend:latest
+```
+
+3) 如果你从仓库下载到了镜像 tar 包（例如 `ai-travel-backend.tar`），先加载镜像再运行：
+
+```powershell
+docker load -i ai-travel-backend.tar
+docker run -d --name ai-travel-backend -p 8000:8000 yourdockeruser/ai-travel-backend:latest
+```
+
+注意：确保在运行容器前正确配置环境变量（SUPABASE、OPENAI 等），可以在 `docker run` 时通过 `-e VAR=value` 注入，或使用 `docker-compose` 管理。
+
