@@ -14,6 +14,7 @@ jobs:
       USERNAME: ${{ secrets.ALIYUN_REGISTRY_USER || secrets.ACR_USERNAME }}
       PASSWORD: ${{ secrets.ALIYUN_REGISTRY_PASSWORD || secrets.ACR_PASSWORD }}
       NAMESPACE: ${{ secrets.ALIYUN_NAME_SPACE || secrets.ACR_NAMESPACE }}
+      REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
       REACT_APP_AMAP_API_KEY: ${{ secrets.REACT_APP_AMAP_API_KEY }}
       REACT_APP_AMAP_KEY: ${{ secrets.REACT_APP_AMAP_KEY }}
       REACT_APP_AMAP_SECURITY_CODE: ${{ secrets.REACT_APP_AMAP_SECURITY_CODE }}

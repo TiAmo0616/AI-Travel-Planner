@@ -1,23 +1,25 @@
-# Stage 1: Build the React application
-FROM node:18-alpine AS build
+FROM node:18-alpine
+
 WORKDIR /app
 
-# Install dependencies
+# 安装依赖
 COPY package*.json ./
 RUN npm ci --silent
 
-# Copy sources and build (accept build ARGs for env vars used by CRA)
+# 复制源代码
 COPY . .
 
-# Build the React application
-RUN npm run build
+# 设置环境变量（接受构建参数）
+ARG REACT_APP_AMAP_API_KEY
+ARG REACT_APP_AMAP_KEY
+ARG REACT_APP_AMAP_SECURITY_CODE
 
-# Stage 2: Set up the Nginx server
-FROM nginx:stable-alpine
-COPY --from=build /app/build /usr/share/nginx/html
+ENV REACT_APP_AMAP_API_KEY=${REACT_APP_AMAP_API_KEY}
+ENV REACT_APP_AMAP_KEY=${REACT_APP_AMAP_KEY}
+ENV REACT_APP_AMAP_SECURITY_CODE=${REACT_APP_AMAP_SECURITY_CODE}
 
-# Expose port 80
-EXPOSE 80
+# 暴露3000端口
+EXPOSE 3000
 
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# 直接启动开发服务器
+CMD ["npm", "start"]
