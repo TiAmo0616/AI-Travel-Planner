@@ -4,14 +4,12 @@ services:
     build:
       context: ./backend
       dockerfile: app/Dockerfile
-    image: ai-travel-backend:latest
+    
+    image: crpi-inq9x5g2af2j5ks2.cn-hangzhou.personal.cr.aliyuncs.com/xst_llmwork/ai-travel-backend:latest
     ports:
       - "8000:8000"
-    environment:
-      - SUPABASE_URL=${SUPABASE_URL}
-      - SUPABASE_KEY=${SUPABASE_KEY}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - SECRET_KEY=${SECRET_KEY}
+    env_file: .env
+     
 
   frontend:
     build:
@@ -19,11 +17,10 @@ services:
       dockerfile: Dockerfile
       args:
         REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:8000}
-    image: ai-travel-frontend:latest
+    image: crpi-inq9x5g2af2j5ks2.cn-hangzhou.personal.cr.aliyuncs.com/xst_llmwork/ai-travel-frontend:latest
     ports:
       - "3000:80" # maps frontend nginx 80 -> host 3000 to match dev CORS
-    environment:
-      - REACT_APP_API_URL=${REACT_APP_API_URL}
+    env_file: .env
 
 # Usage:
 # docker-compose up --build
