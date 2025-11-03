@@ -8,7 +8,7 @@ services:
     image: crpi-inq9x5g2af2j5ks2.cn-hangzhou.personal.cr.aliyuncs.com/xst_llmwork/ai-travel-backend:latest
     ports:
       - "8000:8000"
-    env_file: .env
+    env_file: backend/.env
      
 
   frontend:
@@ -16,15 +16,15 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:8000}
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://backend:8000}
+        REACT_APP_AMAP_API_KEY: ${REACT_APP_AMAP_API_KEY}
+        REACT_APP_AMAP_KEY: ${REACT_APP_AMAP_KEY}
+        REACT_APP_AMAP_SECURITY_CODE: ${REACT_APP_AMAP_SECURITY_CODE}
     image: crpi-inq9x5g2af2j5ks2.cn-hangzhou.personal.cr.aliyuncs.com/xst_llmwork/ai-travel-frontend:latest
     ports:
       - "3000:80" # maps frontend nginx 80 -> host 3000 to match dev CORS
-    args:
-      REACT_APP_API_URL: ${REACT_APP_API_URL}
-      REACT_APP_AMAP_API_KEY: ${REACT_APP_AMAP_API_KEY}
-      REACT_APP_AMAP_KEY: ${REACT_APP_AMAP_KEY}
-      REACT_APP_AMAP_SECURITY_CODE: ${REACT_APP_AMAP_SECURITY_CODE}
+    env_file: frontend/.env
+   
 
 # Usage:
 # docker-compose up --build
