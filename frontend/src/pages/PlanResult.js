@@ -63,7 +63,7 @@ export default function PlanResult() {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem('jwt_token');
-      const res = await api.post('http://localhost:8000/trips/save', {
+      const res = await api.post(`${process.env.REACT_APP_API_URL}/trips/save`, {
         destination: plan.destination,
         dates: String(plan.dates),
         budget: String(plan.total_budget),

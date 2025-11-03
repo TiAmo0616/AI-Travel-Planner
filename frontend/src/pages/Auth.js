@@ -84,7 +84,7 @@ function Auth() {
 
   const submit = async (values) => {
     setLoading(true);
-    const url = mode === 'login' ? 'http://localhost:8000/auth/login' : 'http://localhost:8000/auth/register';
+    const url = mode === 'login' ? `${process.env.REACT_APP_API_URL}/auth/login` : `${process.env.REACT_APP_API_URL}/auth/register`;
     
     try {
       const res = await fetch(url, { 

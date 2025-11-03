@@ -748,7 +748,7 @@ function ExpensesPage() {
       const token = localStorage.getItem('jwt_token');
       console.log('加载行程信息，ID:', id);
       
-      const response = await api.get(`http://localhost:8000/trips/${id}`, {
+      const response = await api.get(`${process.env.REACT_APP_API_URL}/trips/${id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -784,7 +784,7 @@ function ExpensesPage() {
       const params = id ? { trip_id: id } : {};
       console.log('加载开销数据，参数:', params);
 
-      const response = await api.get('http://localhost:8000/expenses/', {
+      const response = await api.get(`${process.env.REACT_APP_API_URL}/expenses/`, {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -830,7 +830,7 @@ function ExpensesPage() {
       let response;
       if (editingExpense) {
         response = await api.put(
-          `http://localhost:8000/expenses/${editingExpense.id}`,
+          `${process.env.REACT_APP_API_URL}/expenses/${editingExpense.id}`,
           expenseData,
           { 
             headers: { 
@@ -841,7 +841,7 @@ function ExpensesPage() {
         );
       } else {
         response = await api.post(
-          'http://localhost:8000/expenses/',
+          `${process.env.REACT_APP_API_URL}/expenses/`,
           expenseData,
           { 
             headers: { 
@@ -877,7 +877,7 @@ function ExpensesPage() {
   const deleteExpense = async (expenseId) => {
     try {
       const token = localStorage.getItem('jwt_token');
-      await api.delete(`http://localhost:8000/expenses/${expenseId}`, {
+      await api.delete(`${process.env.REACT_APP_API_URL}/expenses/${expenseId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       await loadExpenses();
@@ -987,7 +987,7 @@ function ExpensesPage() {
 
     try {
       console.log('🎤 开始发送语音识别请求，字段:', field);
-      const res = await api.post('http://localhost:8000/ai/transcribe', uploadFormData, {
+      const res = await api.post(`${process.env.REACT_APP_API_URL}/ai/transcribe`, uploadFormData, {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'

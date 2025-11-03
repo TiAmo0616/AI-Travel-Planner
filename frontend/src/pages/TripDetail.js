@@ -456,7 +456,7 @@ function TripDetail() {
       }
       
       try {
-        const res = await api.get(`http://localhost:8000/trips/${id}`, {
+        const res = await api.get(`${process.env.REACT_APP_API_URL}/trips/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         

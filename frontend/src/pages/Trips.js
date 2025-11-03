@@ -51,7 +51,7 @@ function Trips() {
       const token = localStorage.getItem('jwt_token');
       if (!token) return;
       try {
-        const {data} = await api.get('http://localhost:8000/trips/listtrips', {
+        const {data} = await api.get(`${process.env.REACT_APP_API_URL}/trips/listtrips`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         //const data = await res.json();
@@ -75,7 +75,7 @@ function Trips() {
       //   headers: { Authorization: `Bearer ${token}` }
       // });
       // if (!res.ok) throw new Error(await res.text());
-         await api.delete(`http://localhost:8000/trips/${tripId}`, {
+         await api.delete(`${process.env.REACT_APP_API_URL}/trips/${tripId}`, {
           
           headers: { Authorization: `Bearer ${token}` }
         });

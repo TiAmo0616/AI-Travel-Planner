@@ -65,7 +65,7 @@ function PreferencesPage() {
         return;
       }
 
-      const response = await api.get('http://localhost:8000/preferences/', {
+      const response = await api.get(`${process.env.REACT_APP_API_URL}/preferences/`, {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ function PreferencesPage() {
         return;
       }
 
-      const response = await api.post('http://localhost:8000/preferences/save', values, {
+      const response = await api.post(`${process.env.REACT_APP_API_URL}/preferences/save`, values, {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -125,7 +125,7 @@ function PreferencesPage() {
       }
 
       const response = await api.post(
-        `http://localhost:8000/preferences/${editingPreference.id}`, 
+        `${process.env.REACT_APP_API_URL}/${editingPreference.id}`, 
         values, 
         {
           headers: { 
@@ -156,7 +156,7 @@ function PreferencesPage() {
         return;
       }
 
-      await api.delete(`http://localhost:8000/preferences/${id}`, {
+      await api.delete(`${process.env.REACT_APP_API_URL}/preferences/${id}`, {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
