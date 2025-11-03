@@ -9,12 +9,15 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     env:
-      # support both our default secret names and user's ALIYUN_* names
-      REGISTRY: ${{ secrets.ACR_REGISTRY || secrets.ALIYUN_REGISTRY }}
-      USERNAME: ${{ secrets.ACR_USERNAME || secrets.ALIYUN_REGISTRY_USER }}
-      PASSWORD: ${{ secrets.ACR_PASSWORD || secrets.ALIYUN_REGISTRY_PASSWORD }}
-      NAMESPACE: ${{ secrets.ACR_NAMESPACE || secrets.ALIYUN_NAME_SPACE }}
+      # 支持默认的 ACR 和用户自定义的 ALIYUN_* 名称
+      REGISTRY: ${{ secrets.ALIYUN_REGISTRY || secrets.ACR_REGISTRY }}
+      USERNAME: ${{ secrets.ALIYUN_REGISTRY_USER || secrets.ACR_USERNAME }}
+      PASSWORD: ${{ secrets.ALIYUN_REGISTRY_PASSWORD || secrets.ACR_PASSWORD }}
+      NAMESPACE: ${{ secrets.ALIYUN_NAME_SPACE || secrets.ACR_NAMESPACE }}
       REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+      REACT_APP_AMAP_API_KEY: ${{ secrets.REACT_APP_AMAP_API_KEY }}
+      REACT_APP_AMAP_KEY: ${{ secrets.REACT_APP_AMAP_KEY }}
+      REACT_APP_AMAP_SECURITY_CODE: ${{ secrets.REACT_APP_AMAP_SECURITY_CODE }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -65,4 +68,7 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/ai-travel-frontend:${{ github.sha }}
           build-args: |
             REACT_APP_API_URL=${{ env.REACT_APP_API_URL }}
+            REACT_APP_AMAP_API_KEY=${{ env.REACT_APP_AMAP_API_KEY }}
+            REACT_APP_AMAP_KEY=${{ env.REACT_APP_AMAP_KEY }}
+            REACT_APP_AMAP_SECURITY_CODE=${{ env.REACT_APP_AMAP_SECURITY_CODE }}
           platforms: linux/amd64
