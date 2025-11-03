@@ -42,4 +42,4 @@ def login(body: UserLogin):
         
         return TokenResp(access_token=res.session.access_token)
     except Exception as e:
-        raise HTTPException(400, "Incorrect email or password")
+        raise HTTPException(400, str(e))
