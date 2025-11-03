@@ -15,16 +15,18 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-      args:
-        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://backend:8000}
-        REACT_APP_AMAP_API_KEY: ${REACT_APP_AMAP_API_KEY}
-        REACT_APP_AMAP_KEY: ${REACT_APP_AMAP_KEY}
-        REACT_APP_AMAP_SECURITY_CODE: ${REACT_APP_AMAP_SECURITY_CODE}
     image: crpi-inq9x5g2af2j5ks2.cn-hangzhou.personal.cr.aliyuncs.com/xst_llmwork/ai-travel-frontend:latest
     ports:
       - "3000:80" # maps frontend nginx 80 -> host 3000 to match dev CORS
     env_file: frontend/.env
-   
+    environment:
+      REACT_APP_API_URL: "http://backend:8000"
+      REACT_APP_AMAP_API_KEY: ${REACT_APP_AMAP_API_KEY}
+      REACT_APP_AMAP_KEY: ${REACT_APP_AMAP_KEY}
+      REACT_APP_AMAP_SECURITY_CODE: ${REACT_APP_AMAP_SECURITY_CODE}
+    depends_on: 
+      - backend 
+    
 
 # Usage:
 # docker-compose up --build

@@ -1,25 +1,23 @@
+# Stage 1: Build the React application
 FROM node:18-alpine AS build
 WORKDIR /app
 
-# install deps
+# Install dependencies
 COPY package*.json ./
 RUN npm ci --silent
 
-# copy sources and build (accept build ARGs for env vars used by CRA)
+# Copy sources and build (accept build ARGs for env vars used by CRA)
 COPY . .
-ARG REACT_APP_API_URL
-ARG REACT_APP_AMAP_API_KEY
-ARG REACT_APP_AMAP_KEY
-ARG REACT_APP_AMAP_SECURITY_CODE
 
-ENV REACT_APP_API_URL=${REACT_APP_API_URL}
-ENV REACT_APP_AMAP_API_KEY=${REACT_APP_AMAP_API_KEY}
-ENV REACT_APP_AMAP_KEY=${REACT_APP_AMAP_KEY}
-ENV REACT_APP_AMAP_SECURITY_CODE=${REACT_APP_AMAP_SECURITY_CODE}
-
+# Build the React application
 RUN npm run build
 
+# Stage 2: Set up the Nginx server
 FROM nginx:stable-alpine
 COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose port 80
 EXPOSE 80
+
+# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
