@@ -19,14 +19,7 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-2. 设置必需的环境变量（示例，按 `backend/core/config.py` 中实际字段设置）
-
-```powershell
-$env:SUPABASE_URL = "https://..."
-$env:SUPABASE_KEY = "your_supabase_key"
-$env:OPENAI_API_KEY = "your_openai_key"
-$env:SECRET_KEY = "a_secret_for_jwt"
-```
+2. 设置必需的环境变量（在 `backend/.env` 中，按 `backend/core/config.py` 中实际字段设置）
 
 3. 启动后端服务
 
@@ -46,48 +39,57 @@ npm install
 npm start
 ```
 
-2. 配置环境变量（在 `frontend/.env` 或系统环境中）
+2. 配置环境变量（在 `frontend/.env` 中）
 
 ```
 REACT_APP_API_URL=http://localhost:8000
-REACT_APP_AMAP_KEY=your_amap_key
+REACT_APP_AMAP_API_KEY=your-amap-key
+REACT_APP_AMAP_KEY=your-amap-key-2
+REACT_APP_AMAP_SECURITY_CODE=your-security-code
 ```
 
 前端默认运行在 `http://localhost:3000`。
 
-## 使用 Docker / Docker Compose（推荐用于快速运行）
 
-1. 使用 docker-compose 启动（在仓库根目录）：
+## 一键启动（推荐）
 
-```powershell
-docker-compose up --build
+1. 下载本仓库的 `docker-compose.yml` 文件。
+2. 在同目录下创建 `.env` 文件，内容如下（请填写你自己的密钥和服务地址）：
+
+```
+# 后端环境变量
+SUPABASE_URL=你的supabase地址
+SUPABASE_KEY=你的supabase key
+OPENAI_API_KEY=你的openai key
+IFLYTEK_APP_ID=你的讯飞appid
+IFLYTEK_API_KEY=你的讯飞apikey
+IFLYTEK_API_SECRET=你的讯飞apisecret
+
+# 前端环境变量
+REACT_APP_API_URL=http://localhost:8000
+REACT_APP_AMAP_KEY=你的高德web JS服务key
+REACT_APP_AMAP_SECURITY_CODE=你的高德安全码
+REACT_APP_AMAP_API_KEY=你的高德Web服务key
 ```
 
-2. 通过镜像运行（如果你已有镜像 tar 或远程镜像）
+3. 在该目录下运行：
 
 ```powershell
-docker load -i ai-travel-backend.tar
-docker load -i ai-travel-frontend.tar
-docker run -d --name ai-travel-backend -p 8000:8000 yourrepo/ai-travel-backend:latest
-docker run -d --name ai-travel-frontend -p 3000:80 yourrepo/ai-travel-frontend:latest
+docker compose up -d
 ```
 
-## 必要环境变量（最小集合）
+4. 启动后，前端访问 http://localhost:3000 ，后端 API 访问 http://localhost:8000
 
-- 后端：SUPABASE_URL, SUPABASE_KEY, OPENAI_API_KEY, SECRET_KEY
-- 前端（构建/运行）：REACT_APP_API_URL, REACT_APP_AMAP_KEY
 
-将具体字段名与说明视 `backend/core/config.py` 和 `frontend/src` 中的引用为准。
 
-## 测试
+## 必要环境变量
 
-后端测试位于 `backend/tests/`，运行：
+- 后端：SUPABASE_URL, SUPABASE_KEY, OPENAI_API_KEY, IFLYTEK_APP_ID, IFLYTEK_API_KEY, IFLYTEK_API_SECRET
+- 前端：REACT_APP_API_URL, REACT_APP_AMAP_KEY, REACT_APP_AMAP_SECURITY_CODE, REACT_APP_AMAP_API_KEY
 
-```powershell
-cd backend
-.\.venv\Scripts\Activate.ps1
-pytest -q
-```
+
+
+
 
 ## 联系与贡献
 

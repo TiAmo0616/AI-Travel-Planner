@@ -1,33 +1,28 @@
 version: '3.8'
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: app/Dockerfile
-    
     image: crpi-inq9x5g2af2j5ks2.cn-hangzhou.personal.cr.aliyuncs.com/xst_llmwork/ai-travel-backend:latest
     ports:
       - "8000:8000"
     env_file: .env
-     
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
     image: crpi-inq9x5g2af2j5ks2.cn-hangzhou.personal.cr.aliyuncs.com/xst_llmwork/ai-travel-frontend:latest
     ports:
-      - "3000:80" # maps frontend nginx 80 -> host 3000 to match dev CORS
-    env_file: .env
+      - "3000:80"
     environment:
-      REACT_APP_API_URL: "http://backend:8000"
+      # 这些环境变量用于运行时替换
+      REACT_APP_API_URL: ${REACT_APP_API_URL}
       REACT_APP_AMAP_API_KEY: ${REACT_APP_AMAP_API_KEY}
       REACT_APP_AMAP_KEY: ${REACT_APP_AMAP_KEY}
       REACT_APP_AMAP_SECURITY_CODE: ${REACT_APP_AMAP_SECURITY_CODE}
-    depends_on: 
-      - backend 
+    # volumes:
+    #   - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
     
 
 # Usage:
 # docker-compose up --build
 # To run production-like setup, set env vars in a .env file or shell.
+
