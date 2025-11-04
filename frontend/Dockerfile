@@ -22,8 +22,12 @@ RUN npm run build
 FROM nginx:stable-alpine
 RUN apk add --no-cache gettext
 
+# 复制 nginx 配置
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # 复制构建结果
 COPY --from=build /app/build /usr/share/nginx/html
+
 
 # 创建统一的运行时替换脚本
 RUN echo '#!/bin/sh' > /docker-entrypoint.sh && \
